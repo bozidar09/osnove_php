@@ -15,7 +15,7 @@
     echo $logicka_vrijednost ? "true" : "false";
     echo "<br>";
 
-    var_dump($logicka_vrijednost);
+    var_dump ($logicka_vrijednost);
     echo "<br>";
 
     // konstante
