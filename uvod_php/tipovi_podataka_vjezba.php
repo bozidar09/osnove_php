@@ -12,7 +12,10 @@
     echo "<br>";
     echo $tekstualan_podatak;
     echo "<br>";
-    echo $logicka_vrijednost? "true":"false";
+    echo $logicka_vrijednost ? "true" : "false";
+    echo "<br>";
+
+    var_dump($logicka_vrijednost);
     echo "<br>";
 
     // konstante
@@ -23,6 +26,8 @@
     echo "<br>";
     echo IBAN;
     echo "<br>";
+    print IBAN;
+    print "<br>";
 
     // reference
     $a = 5;
