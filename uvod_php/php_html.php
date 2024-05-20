@@ -6,14 +6,15 @@
     <title>PHP & HTML</title>
 </head>
 <body>
+    <!--ovo je HTML komentar-->
     <h1>PHP & HTML</h1>
-
+    
     <?php 
         // ini_set ("error_reporting", E_ALL);
         // ini_set ("display_errors", 1);
 
         // include "include_require.php555";
-        require_once "include_require.php444";
+        require_once "include_require.php";
 
         $ispis = "Ovo je ispisano pomoću PHP jezika"
     ?>
