@@ -24,3 +24,16 @@
 
     var_dump ( ! ($a > $b) && ($b == $a) ); // false
     echo "<br>";
+
+    // vrijednosti koje vraćaju FALSE
+    $var = false;
+    $var = 0;
+    $var = 0.0;
+    $var = "";
+    $var = "0";
+    $var = [];
+    $var = NULL;
+
+    if ( ! $var ) {
+        echo "Izraz je istinit.";
+    }
