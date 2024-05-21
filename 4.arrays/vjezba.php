@@ -2,36 +2,64 @@
 
     // vježba 1
 
-    // inicijalizacija indeksiranog niza/polja
-    $primeNumbers = [1,2,3,5,7];
+    // inicijalizacija, punjenje i ispis indeksiranog niza/polja
+    $primeNumbers = [];
+    $elements = 5;
+
+    function primeNumbersFill($primeNumbers, $elements) {
+        for ($i = 1; ; $i++) {
+            $counter = 0;
+            for ($j = 1; $j <= $i; $j++) {
+                if ($i % $j == 0) {
+                    $counter++;
+                }
+            }
+            if ( ! in_array ($i, $primeNumbers) && $j == 2)
+                {
+                $primeNumbers[] = $i;
+            }
+            if ( ! in_array ($i, $primeNumbers) && $counter == 2)
+                {
+                $primeNumbers[] = $i;
+            }
+            if (count($primeNumbers) == $elements) break;
+        }
+        return $primeNumbers;
+    }
+
+    $primeNumbers = primeNumbersFill($primeNumbers, $elements);
+
+    echo "<pre>";
+    print_r($primeNumbers);
+    echo "</pre>";
     
     //provjera postoji li element na indeksu 3 te ispis
-    var_dump ( array_key_exists ( 3, $primeNumbers) );
+    var_dump(array_key_exists(3, $primeNumbers));
     echo "<br>";
 
-    if ( array_key_exists ( 3, $primeNumbers) ) {
+    if (array_key_exists(3, $primeNumbers)) {
         echo $primeNumbers[3];
     } else {
         echo "Treći element u nizu ne postoji";
     }
     echo "<br>";
 
-    //dodavanje novog elementa na kraj niza
-    $primeNumbers[] = 11;
+    // dodavanje novog elementa na kraj niza
+    $elements++;
+    $primeNumbers = primeNumbersFill($primeNumbers, $elements);
     
-    // broj elemenata niza
+    // broj elemenata i ispis novog niza
     echo count($primeNumbers);
     echo "<br>";
 
-    // ispis niza
     echo "<pre>";
-    print_r ( $primeNumbers );
+    print_r($primeNumbers);
     echo "</pre>";
 
     // silazno sortiranje niza uz zadržavanje indeksa
     arsort($primeNumbers);
     echo "<pre>";
-    print_r ( $primeNumbers );
+    print_r($primeNumbers);
     echo "</pre>";
 
 
@@ -41,26 +69,26 @@
 
     // inicijalizacija i ispis višedimenzionalnog niza/polja
     $users = [
-        ["ime" => "aleksandar", "prezime" => "dobrinic", "godine" => 39, "spol" => "M"],
+        ["ime" => "aleksandar", "prezime" => "dobrinic", "godine" => 35, "spol" => "M"],
         ["ime" => "tena", "prezime" => "fiskus", "godine" => 28, "spol" => "Ž"]
     ];
 
     echo "<pre>";
-    print_r ($users);
+    print_r($users);
     echo "</pre>";
 
     // brisanje ključa iz niza/polja
     foreach (array_keys($users) as $user) {
-        unset ($users[$user]["spol"]);
+        unset($users[$user]["spol"]);
     }
 
     echo "<pre>";
-    print_r ($users);
+    print_r($users);
     echo "</pre>";
     
     // dodavanje novog elementa
     $users[] = ["ime" => "stjepan", "prezime" => "puaca", "godine" => 30];
 
     echo "<pre>";
-    print_r ($users);
+    print_r($users);
     echo "</pre>";
