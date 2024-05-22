@@ -6,7 +6,7 @@
     $primeNumbers = [];
     $elements = 5;
 
-    function primeNumbersFill($primeNumbers, $elements) {
+    function primeGenerator($elements, $primeNumbers) {
         for ($i = 1; ; $i++) {
             $counter = 0;
             for ($j = 1; $j <= $i; $j++) {
@@ -14,12 +14,7 @@
                     $counter++;
                 }
             }
-            if ( ! in_array ($i, $primeNumbers) && $j == 2)
-                {
-                $primeNumbers[] = $i;
-            }
-            if ( ! in_array ($i, $primeNumbers) && $counter == 2)
-                {
+            if ( ! in_array($i, $primeNumbers) && $counter <= 2) {
                 $primeNumbers[] = $i;
             }
             if (count($primeNumbers) == $elements) break;
@@ -27,7 +22,7 @@
         return $primeNumbers;
     }
 
-    $primeNumbers = primeNumbersFill($primeNumbers, $elements);
+    $primeNumbers = primeGenerator($elements, $primeNumbers);
 
     echo "<pre>";
     print_r($primeNumbers);
@@ -46,7 +41,7 @@
 
     // dodavanje novog elementa na kraj niza
     $elements++;
-    $primeNumbers = primeNumbersFill($primeNumbers, $elements);
+    $primeNumbers = primeGenerator($elements, $primeNumbers);
     
     // broj elemenata i ispis novog niza
     echo count($primeNumbers);
@@ -78,9 +73,16 @@
     echo "</pre>";
 
     // brisanje ključa iz niza/polja
-    foreach (array_keys($users) as $user) {
-        unset($users[$user]["spol"]);
+    $key = "spol";
+
+    function eraseKey($key, $users) {
+        foreach (array_keys($users) as $user) {
+            unset($users[$user][$key]);
+        }
+        return $users;
     }
+
+    $users = eraseKey($key, $users);
 
     echo "<pre>";
     print_r($users);
