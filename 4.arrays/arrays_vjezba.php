@@ -7,17 +7,18 @@
     $elements = 5;
 
     function primeGenerator($elements, $primeNumbers) {
-        for ($i = 1; ; $i++) {
+        $dividend = 1;
+        while (count($primeNumbers) < $elements) {
             $counter = 0;
-            for ($j = 1; $j <= $i; $j++) {
-                if ($i % $j == 0) {
+            for ($divisor = 1; $divisor <= $dividend; $divisor++) {
+                if ($dividend % $divisor == 0) {
                     $counter++;
                 }
             }
-            if ( ! in_array($i, $primeNumbers) && $counter <= 2) {
-                $primeNumbers[] = $i;
+            if ( ! in_array($dividend, $primeNumbers) && $counter <= 2) {
+                $primeNumbers[] = $dividend;
             }
-            if (count($primeNumbers) == $elements) break;
+            $dividend++;
         }
         return $primeNumbers;
     }
