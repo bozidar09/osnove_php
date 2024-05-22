@@ -28,15 +28,21 @@
     print_r($primeNumbers);
     echo "</pre>";
     
-    //provjera postoji li element na indeksu 3 te ispis
+    //provjera postoji li treći element u nizu (index 2) te ispis
     var_dump(array_key_exists(3, $primeNumbers));
     echo "<br>";
 
-    if (array_key_exists(3, $primeNumbers)) {
-        echo $primeNumbers[3];
-    } else {
-        echo "Treći element u nizu ne postoji";
+    $index = 2;
+
+    function printExist($index, $primeNumbers) {
+        if (array_key_exists($index, $primeNumbers)) {
+            echo "Treći element u nizu je " . $primeNumbers[$index];
+        } else {
+            echo "Treći element u nizu ne postoji";
+        }
     }
+
+    printExist($index, $primeNumbers);
     echo "<br>";
 
     // dodavanje novog elementa na kraj niza
