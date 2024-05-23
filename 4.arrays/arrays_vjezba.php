@@ -15,7 +15,7 @@
                     $counter++;
                 }
             }
-            if ( ! in_array($dividend, $primeNumbers) && $counter <= 2) {
+            if ( ! in_array($dividend, $primeNumbers) && $counter == 2) {
                 $primeNumbers[] = $dividend;
             }
             $dividend++;
@@ -35,8 +35,9 @@
 
     $index = 2;
 
+    // echo "Treći element u nizu " . (isset($primeNumbers[2])) ? "postoji" : "ne postoji";
     function printExist($index, $primeNumbers) {
-        if (array_key_exists($index, $primeNumbers)) {
+        if (isset($primeNumbers[$index])) {  // (array_key_exists($index, $primeNumbers))
             echo "Treći element u nizu je " . $primeNumbers[$index];
         } else {
             echo "Treći element u nizu ne postoji";
@@ -83,7 +84,7 @@
     $key = "spol";
 
     function eraseKey($key, $users) {
-        foreach (array_keys($users) as $user) {
+        foreach (array_keys($users) as $user) { 
             unset($users[$user][$key]);
         }
         return $users;
@@ -96,7 +97,8 @@
     echo "</pre>";
     
     // dodavanje novog elementa
-    $users[] = ["ime" => "stjepan", "prezime" => "puaca", "godine" => 30];
+    $newUser = ["ime" => "stjepan", "prezime" => "puaca", "godine" => 30];
+    $users[] = $newUser;  // array_push($users, $newUser);
 
     echo "<pre>";
     print_r($users);
