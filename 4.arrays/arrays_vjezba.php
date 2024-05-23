@@ -30,7 +30,7 @@
     echo "</pre>";
     
     //provjera postoji li treći element u nizu (index 2) te ispis
-    var_dump(array_key_exists(3, $primeNumbers));
+    var_dump(array_key_exists(2, $primeNumbers));
     echo "<br>";
 
     $index = 2;
