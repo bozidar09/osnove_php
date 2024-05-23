@@ -21,7 +21,7 @@
     ];
 
     foreach ($fruits as $key1 => $fruit) {
-        echo ++$key . " ";
+        echo ++$key1 . " ";
         foreach ($fruit as $key2 => $value) {
             echo "$key2 - $value ";
         }
