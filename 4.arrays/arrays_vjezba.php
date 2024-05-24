@@ -81,16 +81,16 @@
     echo "</pre>";
 
     // brisanje ključa iz niza/polja
-    $attribute = "spol";
+    $key = "spol";
 
-    function eraseKey($attribute, $users) {
-        foreach ($users as $key => $user) {    // (array_keys($users) as $user)
-            unset($users[$key][$attribute]);   // unset($users[$user][$attribute])
+    function eraseKey($key, $users) {
+        foreach ($users as $user => $data) {    // (array_keys($users) as $user)
+            unset($users[$user][$key]);   // unset($users[$user][$key])
         }
         return $users;
     }
 
-    $users = eraseKey($attribute, $users);
+    $users = eraseKey($key, $users);
 
     echo "<pre>";
     print_r($users);

@@ -36,8 +36,8 @@
     //         10 x 10 = 100
 
     for ($i=1; $i <= 10 ; $i++) { 
-        for ($j=1; $j <= 10 ; $j++) { 
-            echo "$i x $j<br>";
+        for ($j=1; $j <= 10 ; $j++) {
+            echo "$i x $j =" . $i * $j . "<br>";
         }
     }
 
@@ -78,9 +78,7 @@
     $b = 10;
     $c = 15;
 
-    if ($a < $b && $b < $c) {
-        echo "$b je između $a i $c";
-    } elseif ($a > $b && $b > $c) {
+    if (($a < $b && $b < $c) || ($a > $b && $b > $c)) {
         echo "$b je između $a i $c";
     } else {
         echo "$b nije između $a i $c";
