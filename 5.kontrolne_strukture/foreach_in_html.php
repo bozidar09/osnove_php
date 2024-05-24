@@ -33,7 +33,7 @@
         ]
     ];
 
-    ?>
+?>
 
 <!DOCTYPE html>
     <html lang="en">
@@ -43,8 +43,29 @@
         <title>Korisnici</title>
     </head>
     <body>
-        <table>
-            <!-- ispisati sadrzaj niza $users u HTML tablicu -->
-        </table>
+        <table border="1">  
+                  
+            <tr>
+            <?php
+            $key = array_key_first($users);
+
+            foreach ($users[$key] as $attribute => $value): ?>  
+                <th align="left">
+                <?= $attribute; ?>
+                </th>  
+            <?php endforeach; ?>
+            </tr> 
+            
+            <?php foreach ($users as $user => $data): ?>
+            <tr>
+                <?php foreach ($data as $attribute => $value): ?>
+                    <td>
+                    <?= $value; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>   
+            <?php endforeach; ?>
+
+        </table>      
     </body>
 </html>

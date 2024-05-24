@@ -27,3 +27,29 @@
         }
         echo "<br>";
     }
+
+    // brisanje ključa iz višedimenzionalnog niza/polja
+
+    $key = "klasa";
+
+    foreach ($fruits as $fruit => $data) {
+        foreach ($data as $attribute => $value) {
+            unset($fruits[$fruit][$key]);
+        }
+    }
+
+    echo "<pre>";
+    print_r ($fruits);
+    echo "</pre>";
+
+    // dodavanje ključa u višedimenzionalni niz/polje
+
+    $key = "pakiranje";
+
+    foreach ($fruits as $fruit => $data) {
+        $fruits[$fruit][$key] = "";
+    }
+
+    echo "<pre>";
+    print_r ($fruits);
+    echo "</pre>";
