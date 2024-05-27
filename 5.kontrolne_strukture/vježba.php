@@ -31,13 +31,15 @@
     // 3. Tablica množenja: Napiši PHP program koji koristi petlje za generiranje tablice množenja od 1 do 10.
     //     Primjer:
     //         1 x 1 = 1
-    //         1 x 2 = 2
+    //         2 x 2 = 2
     //         ...
     //         10 x 10 = 100
 
     for ($i=1; $i <= 10 ; $i++) { 
         for ($j=1; $j <= 10 ; $j++) {
-            echo "$i x $j = " . $i * $j . "<br>";
+            if ($i == $j){
+                echo "$i x $j = " . $i * $j . "<br>";
+            }
         }
     }
 
