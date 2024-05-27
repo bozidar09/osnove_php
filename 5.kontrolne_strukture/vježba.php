@@ -57,10 +57,10 @@
 
     $counter = 0;
 
-    foreach ($names as $key => $name) {
+    foreach ($names as $key => $name) {  // implode (", ", $names);
         $counter++;
-        if (count($names) == $counter) {
-            echo $name;
+        if (count($names) == $counter) {  // echo ($names == end($names)) ? $name : $name . ", ";
+            echo $name;  
         } else {
             echo "$name, ";
         }
@@ -89,7 +89,7 @@
     // 7. Koristeći uvjetovani tip kontrolne strukture switch ili match ispišite koji je trenutno dan u tjednu.
     //     Za ispravno izvršenu vježbu koristite PHP funkciju date(). Nazivi dana moraju biti na hrvatskom jeziku.
 
-    $day = date("w");
+    $day = date("w"); // date("N");
 
     switch ($day) {
         case "1":
