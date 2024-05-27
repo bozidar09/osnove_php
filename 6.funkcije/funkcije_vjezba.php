@@ -27,16 +27,16 @@
 
     // vježba 3
 
-    function randSum(int $number): int
+    function sumFunc(int $number): int
     {
         static $sum = 0;
         $sum += $number;
         return $sum;
     }
 
-    $sumFunc = "randSum";
+    $randSum = "sumFunc";
 
     for ($i=1; $i<=5; $i++) {
-        echo $sumFunc(rand(1,10));
+        echo $randSum(rand(1,10));
         echo "<br>";
     }
