@@ -40,3 +40,6 @@
         echo $randSum(rand(1,10));
         echo "<br>";
     }
+
+    // die(); -> zaustavlja kod na željenoj lokaciji
+    // var_dump("opis varijable", $varijabla) -> ipisuje varijablu, a može se dodati i opis
