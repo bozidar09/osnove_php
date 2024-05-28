@@ -73,7 +73,7 @@
                     "email" => "borna.boric@gmail.com",
                     "phone" => 38595666777
                 ];
-                $students = array_unique($students, SORT_REGULAR);
+                $students = array_unique($students, SORT_REGULAR); // funkcija koja rješava problem duplikata
                 encodePut($students, FILE_PATH);
                 $students = getDecode(FILE_PATH);
                 $key = array_key_first($students);
