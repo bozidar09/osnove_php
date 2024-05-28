@@ -3,6 +3,7 @@
     // 1. Pročitajte podatke iz datoteke polaznici.json, te ih ispišite u HTML tablicu.
     // 2. Dodajte novog polaznika u datoteku polaznici.json, te podatke iz nje ponovo ispišite.
 
+
     // u terminalu:
     // sudo usermod -aG bozidar www-data  ->  dodavanje apache u vlastitu grupu "bozidar"
     // sudo chmod 664 ./podaci/polaznici.json  ->  dodavanje korisnicima u vlastitoj grupi write ovlasti nad datotekom polaznici.json
@@ -17,7 +18,7 @@
     }
     
     // funkcija pretvara podatke u json tip i sprema ih u datoteku
-    function putEncode(array $newData, string $filePath): void
+    function encodePut(array $newData, string $filePath): void
     {
         file_put_contents($filePath, json_encode($newData));
     }
@@ -72,7 +73,7 @@
                     "email" => "borna.boric@gmail.com",
                     "phone" => 38595666777
                 ];
-                putEncode($students, FILE_PATH);
+                encodePut($students, FILE_PATH);
                 $students = getDecode(FILE_PATH);
                 $key = array_key_first($students);
                 foreach ($students[$key] as $attribute => $value): ?>  
@@ -97,10 +98,3 @@
 
     </body>
 </html>
-
-<?php
-
-    
-
-?>
-    
