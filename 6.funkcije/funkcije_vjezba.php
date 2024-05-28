@@ -29,14 +29,14 @@
 
     function sumFunc(int $number): int
     {
-        static $sum = 0;
+        static $sum = 0; // static $sum;  ->  radi isto jer pretvori null u 0
         $sum += $number;
         return $sum;
     }
 
     $randSum = "sumFunc";
 
-    for ($i=1; $i<=5; $i++) {
+    for ($i = 1; $i <= 5; $i++) {
         echo $randSum(rand(1,10));
         echo "<br>";
     }
