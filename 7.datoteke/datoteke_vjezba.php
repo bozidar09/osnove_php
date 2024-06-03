@@ -16,7 +16,7 @@
     // funkcija dohvaća podatke iz datoteke i pretvara ih u array
     function getDecode(string $filePath): array
     {
-        return json_decode(file_get_contents($filePath), true);
+        return json_decode(file_get_contents($filePath), true); // check postoji li datoteka kod file_get_contents!!!
     }
     
 
