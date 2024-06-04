@@ -114,7 +114,7 @@
 
                         $word = $_POST["word"];
 
-                        if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui", $word)) {  // funkcija preg_match koristi regularni izraz koji provjerava sastoji li se upisana riječ samo od slova
+                        if (!preg_match("/^[a-z\x{100}-\x{17f}]{2,20}+$/ui", $word)) {  // funkcija preg_match koristi regularni izraz koji provjerava sastoji li se upisana riječ samo od slova
                             
                             die("<br>Niste upisali ispravnu riječ!");
 
