@@ -16,14 +16,28 @@
     // funkcija dohvaća podatke iz datoteke i pretvara ih u array
     function getDecode(string $filePath): array
     {
-        return json_decode(file_get_contents($filePath), true); // check postoji li datoteka kod file_get_contents!!!
+        if (($tempArray = file_get_contents($filePath)) !== false) {
+            if (($tempArray = json_decode($tempArray, true)) !== false) {
+                return $tempArray;
+            } else {
+                echo "Greška dekodiranja datoteke!";
+            }
+        } else {
+            echo "Greška čitanja datoteke!";
+        }
     }
     
 
     // funkcija pretvara podatke u json tip i sprema ih u datoteku
     function encodePut(array $newData, string $filePath): void
     {
-        file_put_contents($filePath, json_encode($newData));
+        if (($tempArray = json_encode($newData)) !== false) {
+            if ((file_put_contents($filePath, $tempArray)) == false) {  // FILE_APPEND -> opcija za dodavanje na kraj datoteke
+                echo "Greška spremanja datoteke!";
+            }
+        } else {
+            echo "Greška kodiranja datoteke!";
+        }
     }
 
 
@@ -31,8 +45,33 @@
     function getPopPut(string $filePath): void
     {
         $tempArray = getDecode($filePath);
-        array_pop($tempArray);
+        if (array_pop($tempArray) == NULL) {
+            echo "Datoteka je prazna!";
+        }
         encodePut($tempArray, $filePath);
+    }
+
+    // funkcija za ispis tablice polaznika
+    function printStudentsTable(array $students) : void
+    {
+        echo "<table border='1'>";
+            echo "<tr>";
+                echo "<th> Ime </th>";
+                echo "<th> Prezime </th>";
+                echo "<th> Godine </th>";
+                echo "<th> Email </th>";
+                echo "<th> Telefon </th>";
+            echo "</tr>";
+        foreach ($students as $student) {
+            echo "<tr>";
+                echo "<td>" . $student['name'] . "</td>";
+                echo "<td>" . $student['surname'] . "</td>";
+                echo "<td>" . $student['age'] . "</td>";
+                echo "<td>" . $student['email'] . "</td>";
+                echo "<td>" . $student['phone'] . "</td>";
+            echo "</tr>";     
+        }
+        echo "</table>";
     }
 
 ?>
@@ -47,71 +86,31 @@
     </head>
     <body>
 
-        <table border="1">  
-            <thead>
-                <tr>
-                <?php
-                $students = getDecode(FILE_PATH);
-                $key = array_key_first($students);
-                foreach ($students[$key] as $attribute => $value): ?>  
-                    <th>
-                    <?= $attribute; ?>
-                    </th>  
-                <?php endforeach; ?>
-                </tr> 
-            </thead>
-            <tbody>
-                <?php foreach ($students as $student => $data): ?>
-                    <tr>
-                    <?php foreach ($data as $attribute => $value): ?>
-                        <td>
-                        <?= $value; ?>
-                        </td>
-                    <?php endforeach; ?>
-                    </tr>   
-                <?php endforeach; ?>
-            </tbody>
-        </table> 
+        <?php
 
-        <br>
+        $students = getDecode(FILE_PATH);
+        printStudentsTable($students);
+        echo "<br>";
 
-        <table border="1">  
-            <thead>
-                <tr>
-                <?php
-                $students[] = [
-                    "name" => "Borna",
-                    "surname" => "Borić",
-                    "age" => 29,
-                    "email" => "borna.boric@gmail.com",
-                    "phone" => 38595666777
-                ];
-                $students = array_unique($students, SORT_REGULAR);  // ugrađena php funkcija koja rješava problem duplikata
-                encodePut($students, FILE_PATH);
-                $students = getDecode(FILE_PATH);
-                $key = array_key_first($students);
-                foreach ($students[$key] as $attribute => $value): ?>  
-                    <th>
-                    <?= $attribute; ?>
-                    </th>  
-                <?php endforeach; ?>
-                </tr> 
-            </thead>
-            <tbody>
-                <?php foreach ($students as $student => $data): ?>
-                    <tr>
-                    <?php foreach ($data as $attribute => $value): ?>
-                        <td>
-                        <?= $value; ?>
-                        </td>
-                    <?php endforeach; ?>
-                    </tr>   
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    
+        $students[] = [
+            "name" => "Borna",
+            "surname" => "Borić",
+            "age" => 29,
+            "email" => "borna.boric@gmail.com",
+            "phone" => 38595666777
+        ];
+        $students = array_unique($students, SORT_REGULAR);  // ugrađena php funkcija koja rješava problem duplikata
+
+        encodePut($students, FILE_PATH);
+        $students = getDecode(FILE_PATH);
+        printStudentsTable($students);
+
+        getPopPut(FILE_PATH);
+
+        ?>
+
     </body>
 </html>
 
-<?php getPopPut(FILE_PATH); ?>
+<?php  ?>
     
