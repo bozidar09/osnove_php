@@ -3,15 +3,15 @@
     $postData = $_POST;
 
     if (!empty($postData["name"]) || !empty($postData["surname"])) {
-
+        
         $name = $postData["name"];
         $surname = $postData["surname"];
 
         if (!empty($name)) {
-            if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui", $name)) {
-                echo "Niste upisali ispravno name<br>";
+            if (!preg_match('/^[\p{Latin}\s]+$/u', $name)) {  // druga opcija za regex  ->  "/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui"
+                echo "Niste upisali ispravno ime<br>"; 
             } else {
-                echo "Vaše name je $name<br>";
+                echo "Vaše ime je $name<br>";
             }
         } else {
             echo "Ime nije upisano<br>";

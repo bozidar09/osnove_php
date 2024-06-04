@@ -1,15 +1,24 @@
+<?php
+
+    // var_dump($_REQUEST);
+    // var_dump($_POST);
+    var_dump($_GET);
+
+    // primjer URL-a sa GET parametrima  ->  http://localhost/8.superglobalne_varijable/get.php?objekt=stolica&subjekt=predavac
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obrazac</title>
+    <title>Document</title>
 </head>
 <body>
 
-    <h2>Obrazac</h2>
+    <h2>GET superglobal</h2>
 
-    <form method="POST" action="obrada_vjezba.php">
+    <form method="GET">
 
         <label for="name">Ime:</label><br>
         <input type="text" id="name" name="name" required><br>
