@@ -1,27 +1,27 @@
 <?php
 
-    $podaci = $_POST;
+    $postData = $_POST;
 
-    if (!empty($podaci["name"]) || !empty($podaci["surname"])) {
+    if (!empty($postData["name"]) || !empty($postData["surname"])) {
 
-        $ime = $podaci["name"];
-        $prezime = $podaci["surname"];
+        $name = $postData["name"];
+        $surname = $postData["surname"];
 
-        if (!empty($ime)) {
-            if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui", $ime)) {
-                echo "Niste upisali ispravno ime<br>";
+        if (!empty($name)) {
+            if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui", $name)) {
+                echo "Niste upisali ispravno name<br>";
             } else {
-                echo "Vaše ime je $ime<br>";
+                echo "Vaše name je $name<br>";
             }
         } else {
             echo "Ime nije upisano<br>";
         }
 
-        if (!empty($prezime)) {
-            if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui", $prezime)) {
+        if (!empty($surname)) {
+            if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui", $surname)) {
                 echo "Niste upisali ispravno prezime<br>";
             } else {
-                echo "Vaše prezime je $prezime<br>";
+                echo "Vaše prezime je $surname<br>";
             }
         } else {
             echo "Prezime nije upisano<br>";
