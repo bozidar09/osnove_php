@@ -1,7 +1,14 @@
 <?php
 
+    $dataDir = __DIR__ . "/data";
     const FILE_PATH = __DIR__ . "/data/words.json";
 
+    // ako direktorij /data u koji spremamo words.json ne postoji stvaramo ga
+    if (!is_dir($dataDir)) {
+        mkdir($dataDir);
+    }
+
+    // ako datoteka words.json ne postoji baca exception
     try {
         if (!file_exists(FILE_PATH)) {
             throw new Exception("File doesnt exist: " . FILE_PATH);
@@ -107,7 +114,7 @@
 
                         $word = $_POST["word"];
 
-                        if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,25}+$/ui", $word)) {  // funkcija preg_match koristi regularni izraz koji provjerava sastoji li se upisana riječ samo od slova
+                        if (!preg_match("/^[-a-z_\x{100}-\x{17f}]{2,20}+$/ui", $word)) {  // funkcija preg_match koristi regularni izraz koji provjerava sastoji li se upisana riječ samo od slova
                             
                             die("<br>Niste upisali ispravnu riječ!");
 

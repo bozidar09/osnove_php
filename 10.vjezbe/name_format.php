@@ -25,6 +25,9 @@
 
     echo $formattedName;
 
+    preg_match_all("/[aeiou]/i", "bozidar", $vowels);
+    prettyPrint($vowels[0]);
+
 
 
     function prettyPrint(array $print)
