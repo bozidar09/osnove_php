@@ -2,21 +2,18 @@
 
     $dataDir = __DIR__ . "/data";
     const FILE_PATH = __DIR__ . "/data/words.json";
-
-    // ako direktorij /data u koji spremamo words.json ne postoji stvaramo ga
+    
+    // ako direktorij i datoteka "/data/words.json" ne postoje stvaramo ih (prije toga treba dodati "774" ovlasti u wsl-u za taj direktorij)
     if (!is_dir($dataDir)) {
-        mkdir($dataDir);
+        if(!mkdir($dataDir)) {
+            die("<br>Nemate ovlasti stvoriti direktorij!");
+        }
     }
 
-    // ako datoteka words.json ne postoji baca exception
-    try {
-        if (!file_exists(FILE_PATH)) {
-            throw new Exception("File doesnt exist: " . FILE_PATH);
-        } elseif (is_dir(FILE_PATH)) {
-            throw new Exception("This is not a file: " . FILE_PATH);
+    if (!file_exists(FILE_PATH)) {
+        if (!file_put_contents(FILE_PATH, '')){
+            die("<br>Nemate ovlasti stvoriti datoteku!");
         }
-    } catch (\Exception $exception) {
-        echo $exception->getMessage();
     }
 
     // funkcija dohvaća podatke iz datoteke i pretvara ih u array
@@ -80,7 +77,7 @@
             echo "</tr>";     
         }
     }
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -103,7 +100,8 @@
                 <form method="POST" action="dictionary.php">
 
                     <label for="word">Upišite riječ:</label><br>
-                    <input type="text" id="word" name="word" required><br><br>
+                    <input type="text" id="word" name="word"><br><br>
+
                     <input type="submit" value="Pošalji">
 
                 </form>
@@ -116,7 +114,7 @@
 
                         if (!preg_match("/^[a-z\x{100}-\x{17f}]{2,20}+$/ui", $word)) {  // funkcija preg_match koristi regularni izraz koji provjerava sastoji li se upisana riječ samo od slova
                             
-                            die("<br>Niste upisali ispravnu riječ!");
+                            die("<br>Riječ mora biti sastavljena samo od slova, bez razmaka i specijalnih znakova");
 
                         } else {
 
