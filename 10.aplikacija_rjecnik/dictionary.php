@@ -3,7 +3,7 @@
     $dataDir = __DIR__ . "/data";
     const FILE_PATH = __DIR__ . "/data/words.json";
     
-    // ako direktorij i datoteka "/data/words.json" ne postoje stvaramo ih (prije toga treba dodati "774" ovlasti u wsl-u za taj direktorij)
+    // ako direktorij i datoteka na putanji "/data/words.json" ne postoje stvaramo ih (prije toga treba dodati "sudo chmod -R 774" ovlasti u wsl-u za direktorij u kojem će se oni nalaziti)
     if (!is_dir($dataDir)) {
         if(!mkdir($dataDir)) {
             die("<br>Nemate ovlasti stvoriti direktorij!");
@@ -39,7 +39,7 @@
         if (($tempArray = json_encode($newData)) === false) {
             die("<br>Greška kodiranja datoteke!");
         } else {
-            if ((file_put_contents($filePath, $tempArray)) === false) { 
+            if (file_put_contents($filePath, $tempArray) === false) { 
                 die("<br>Greška spremanja datoteke!");
             }
         }
@@ -59,7 +59,7 @@
     function countVowels(string $word) : int
     {  
         if ((preg_match_all("/[aeiou]/i", $word, $vowels)) !== false) {  // ovdje u funkciji preg_match_all koristimo regularni izraz za pronalazak svih samoglasnika u riječi
-            return count($vowels[0]); 
+            return count($vowels[0]);  // brojimo elemente prvog retka dvodimenzionalnog indeksiranog arraya gdje se nalaze svi pogođeni samoglasnici
         } else {
             return 0;
         }
@@ -147,10 +147,11 @@
             </div>
 
             <div id="right" style="flex-basis: 50%;">
+
                 <br>
-                <p>
+                
                 <table border="1">
-                    <tr>
+                    <tr align="left">
                         <th>Riječ</th>
                         <th>Broj slova</th>
                         <th>Broj suglasnika</th>
@@ -162,8 +163,6 @@
                         printWordRows($words);
 
                     ?>
-
-                <br>
 
                 </table>
 
