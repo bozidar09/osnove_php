@@ -3,9 +3,9 @@
     $dataDir = __DIR__ . "/data";
     const FILE_PATH = __DIR__ . "/data/words.json";
     
-    // ako direktorij i datoteka na putanji "/data/words.json" ne postoje stvaramo ih (prije toga treba dodati "sudo chmod -R 774" ovlasti u wsl-u za direktorij u kojem će se oni nalaziti)
+    // ako direktorij i datoteka na putanji "/data/words.json" ne postoje stvaramo ih (uz ovlast "774")
     if (!is_dir($dataDir)) {
-        if(!mkdir($dataDir)) {
+        if(!mkdir($dataDir, 0774, true)) {
             die("<br>Nemate ovlasti stvoriti direktorij!");
         }
     }
