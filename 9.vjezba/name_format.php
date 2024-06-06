@@ -1,6 +1,6 @@
 <?php
 
-    // napraviti funkciju koja prima ime, prezime (pErO,pErIc) i kao rezultat vraca P. Peric
+    // napraviti funkciju koja prima ime, prezime (pErO,ćOrIć) i kao rezultat vraca P. Ćorić
 
     function formatName(string $name): string
     {
@@ -14,14 +14,15 @@
         $firstLetter = substr($name, 0, 1);  // $name[0] -> lakši način
         $firstLetter = mb_strtoupper($firstLetter);  // ucfirst()/ucwords() -> drugi način, ne radi sa čćđšž
 
-        $surname = ucfirst(mb_strtolower($surname));
-
-        return "$firstLetter. $surname";
+        $urname = mb_strtolower(substr($surname, 2));
+        $s = mb_strtoupper(substr($surname, 0, 2));
+        
+        return "$firstLetter. $s$urname";
 
         prettyPrint($nameArray);
     }
 
-    $formattedName = formatName("pErO,pErIc");
+    $formattedName = formatName("pErO,ćOrIć");
 
     echo $formattedName;
 

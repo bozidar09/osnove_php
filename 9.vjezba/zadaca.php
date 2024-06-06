@@ -8,12 +8,27 @@
 // Provjerite je li poslana datoteka slika
 // Pohranite poslanu datoteku.
 
+// obrazac_files.php i obrada_files.php
+
+
 // 2.
 // Dovrsiti zadatak tecajnica.php
 // napravit web formu za konverziju EUR u USD
 // korisink u formu upisuje iznos u eurima i nakon submita
 // vi ispisujete konvertiranu vrijdnost
 
+// tecajna_lista.php
+
+
 // 3.
 // Napraviti kalkulator koji koristi 4 osnovne
 // matematicke funkcije koristenjem web formi
+
+// calculator.php
+
+
+// 4.
+// Pomoću varijable GET dohvatite i ispišite podatke poslane kroz URL.
+// Ako podaci ne postoje, ispišite poruku.
+
+// get_vjezba.php
