@@ -3,7 +3,8 @@
     $dataDir = __DIR__ . "/data";
     const FILE_PATH = __DIR__ . "/data/words.json";
     
-    // ako direktorij i datoteka na putanji "/data/words.json" ne postoje stvaramo ih (uz ovlast "774")
+    // ako direktorij i datoteka na putanji "/data/words.json" ne postoje stvaramo ih
+    // pritom treba dodati trenutnog korisnika u apacheovu grupu kako bi mogli koristiti od njega stvoreni direktorij i datoteku naredbom "sudo usermod -aG www-data korisnik"
     if (!is_dir($dataDir)) {
         if(!mkdir($dataDir, 0774, true)) {
             die("<br>Nemate ovlasti stvoriti direktorij!");
