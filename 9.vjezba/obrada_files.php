@@ -33,10 +33,13 @@
 
     if (!empty($_FILES)) {
         if (!is_dir($uploadDir)) {
-            mkdir($uploadDir);
+            mkdir($uploadDir, 0774, true);
         }
 
-        $file = $_FILES["file"]["name"];
+        // $_FILES["file"]["error"] === UPLOAD_ERR_OK / O  ->  provjera je li se dogodila greška kod uploada datoteke
+        // $_FILES["file"]["name"] && $_FILES["file"]["size"] != 0  ->  drugi način provjere je li upload datoteke prošao bez greške
+
+        $file = $_FILES["file"]["name"];  // može se dodati basename() radi dodatne sigurnosti
         $fileName = $uploadDir . "/" . $file;        
 
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $fileName)) {
@@ -51,3 +54,7 @@
     } else {
         die("<br>Niste dodali datoteku!");
     }
+
+    // pathinfo($file)  ->  stvori array sa podatcima o datoteci, uključujući ekstenziju
+    // array()  -> stvori array ekstenzija tipa picture
+    // in_array()  ->  provjeri je li ekstenzija u arrayu dopuštenih ekstenzija

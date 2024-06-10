@@ -8,7 +8,7 @@
         $surname = $postData["surname"];
 
         if (!empty($name)) {
-            if (!preg_match('/^[\p{Latin}\s]+$/u', $name)) {  // druga opcija za regex  ->  "/^[a-z\x{100}-\x{17f}]{2,20}+$/ui"
+            if (!preg_match('/^[\p{Latin}\s]^[\d]+$/u', $name)) {  // druga opcija za regex  ->  "/^[a-z\x{100}-\x{17f}]{2,20}+$/ui"
                 echo "Niste upisali ispravno ime<br>"; 
             } else {
                 echo "Vaše ime je $name<br>";
