@@ -4,7 +4,6 @@
     const FILE_PATH = __DIR__ . "/data/words.json";
     
     // ako direktorij i datoteka na putanji "/data/words.json" ne postoje stvaramo ih
-    // pritom treba dodati trenutnog korisnika u apacheovu grupu kako bi mogli koristiti od njega stvoreni direktorij i datoteku naredbom "sudo usermod -aG www-data korisnik"
     if (!is_dir($dataDir)) {
         if(!mkdir($dataDir, 0774, true)) {
             die("<br>Nemate ovlasti stvoriti direktorij!");
@@ -12,7 +11,7 @@
     }
 
     if (!file_exists(FILE_PATH)) {
-        if (!file_put_contents(FILE_PATH, '')){
+        if (file_put_contents(FILE_PATH, '') != false){  // koristimo operator "!=" kako se stvorena prazna datoteka ne bi okarakterizirala kao "false"
             die("<br>Nemate ovlasti stvoriti datoteku!");
         }
     }
@@ -40,24 +39,32 @@
         if (($tempArray = json_encode($newData)) === false) {
             die("<br>Greška kodiranja datoteke!");
         } else {
-            if (file_put_contents($filePath, $tempArray) === false) { 
+            if (file_put_contents($filePath, $tempArray) === false) {  // dodajemo nove podatke na kraj datoteke
                 die("<br>Greška spremanja datoteke!");
             }
         }
     }
     
     // funkcija za brojanje suglasnika
-    function countConsonants(string $word) : int
+    function countConsonants(string $word): int
     {  
-        if (($consonants = preg_replace("/[aeiou]/i", "", $word)) !== false) {  // ovdje u funkciji preg_replace koristimo regularni izraz za pronalazak i brisanje samoglasnika iz riječi
-            return mb_strlen($consonants);  // ugrađena funkcija koja ispravno broji slova u stringu (uključujući naše čćđšž)
+        if ((preg_match_all("/[b-df-hj-np-tv-z\x{100}-\x{17f}]/ui", $word, $consonants)) !== false) {  // ovdje u funkciji preg_match_all koristimo regularni izraz za pronalazak svih suglasnika u riječi
+            return count($consonants[0]);  // brojimo elemente prvog retka dvodimenzionalnog indeksiranog arraya gdje se nalaze svi pogođeni suglasnici
         } else {
             return 0;
         }
     }
+    // function countConsonants(string $word) : int
+    // {  
+    //     if (($consonants = preg_replace("/[aeiou]/i", "", $word)) !== false) {  // ovdje u funkciji preg_replace koristimo regularni izraz za pronalazak i brisanje samoglasnika iz riječi
+    //         return mb_strlen($consonants);  // ugrađena funkcija koja ispravno broji slova u stringu (uključujući naše čćđšž)
+    //     } else {
+    //         return 0;
+    //     }
+    // }
 
     // funkcija za brojanje samoglasnika
-    function countVowels(string $word) : int
+    function countVowels(string $word): int
     {  
         if ((preg_match_all("/[aeiou]/i", $word, $vowels)) !== false) {  // ovdje u funkciji preg_match_all koristimo regularni izraz za pronalazak svih samoglasnika u riječi
             return count($vowels[0]);  // brojimo elemente prvog retka dvodimenzionalnog indeksiranog arraya gdje se nalaze svi pogođeni samoglasnici
@@ -66,12 +73,36 @@
         }
     }
 
+    // function countVowels(string $word): int
+    // {
+    //     $counter = 0;
+    //     $word = str_split($word);
+    //     $vowels = "aeiou";
+    //     foreach ($word as $letters) {
+    //         if (str_contains($vowels, mb_strtolower($letters))) {  // str_contains() vraća true ako niz sadrži određeno slovo
+    //             $counter++;
+    //         }
+    //     }
+    //     return $counter;
+    // }
+
+    // function countVowels(string $word): int
+    // {
+    //     $counter = 0;
+    //     $counter += substr_count($text, 'a');  //  substr_count() vraća broj pojavljivanja određenog stringa (u ovom slučaju jednog slova)
+    //     $counter += substr_count($text, 'e');
+    //     $counter += substr_count($text, 'i');
+    //     $counter += substr_count($text, 'o');
+    //     $counter += substr_count($text, 'u');
+    //     return $counter;
+    // }
+
     // funkcija za ispis tablice riječi
-    function printWordRows(array $words) : void
+    function printWordRows(array $words): void
     {
         foreach ($words as $word) {
             echo "<tr>";
-                echo "<td>" . $word['name'] . "</td>";
+                echo "<td>" . $word['word'] . "</td>";
                 echo "<td>" . $word['letters'] . "</td>";
                 echo "<td>" . $word['consonants'] . "</td>";
                 echo "<td>" . $word['vowels'] . "</td>";
@@ -105,45 +136,44 @@
 
                     <input type="submit" value="Pošalji">
 
-                </form>
+                    <?php
 
-                <?php 
+                        if (empty($_POST["word"])) {
 
-                    if (!empty($_POST["word"])) {
-
-                        $word = $_POST["word"];
-
-                        if (!preg_match("/^[a-z\x{100}-\x{17f}]{2,20}+$/ui", $word)) {  // funkcija preg_match koristi regularni izraz koji provjerava sastoji li se upisana riječ samo od slova
-                            
-                            die("<br>Riječ mora biti sastavljena samo od slova, bez razmaka i specijalnih znakova");
+                            die("<br><br>Morate upisati riječ!");
 
                         } else {
 
-                            $letters = mb_strlen($word); 
-                            $consonants = countConsonants($word);
-                            $vowels = countVowels($word);
+                            $word = $_POST["word"];
 
+                            if (!preg_match("/^[a-z\x{100}-\x{17f}]{2,20}+$/ui", $word)) {  // funkcija preg_match koristi regularni izraz koji provjerava sastoji li se upisana riječ samo od slova        
+                                
+                                die("<br><br>Riječ mora biti sastavljena samo od slova, bez razmaka i specijalnih znakova!");  
+
+                            } else {
+
+                                $letters = mb_strlen($word); 
+                                $consonants = countConsonants($word);
+                                $vowels = countVowels($word);
+
+                                $words = getDecode(FILE_PATH); 
+
+                                $words[] = [
+                                    "word" => $word,
+                                    "letters" => $letters,
+                                    "consonants" => $consonants,
+                                    "vowels" => $vowels
+                                ];
+                                $words = array_unique($words, SORT_REGULAR);  // ugrađena php funkcija koja rješava problem duplikata 
+
+                                encodePut($words, FILE_PATH);
+                                
+                            }
                         }
-                    } else {
 
-                        die("<br>Morate upisati riječ!");
+                    ?>
 
-                    }
-
-                    $words = getDecode(FILE_PATH); 
-
-                    $words[] = [
-                        "name" => $word,
-                        "letters" => $letters,
-                        "consonants" => $consonants,
-                        "vowels" => $vowels
-                    ];
-
-                    $words = array_unique($words, SORT_REGULAR);  // ugrađena php funkcija koja rješava problem duplikata 
-
-                    encodePut($words, FILE_PATH);
-
-                    ?> 
+                </form>
 
             </div>
 
@@ -159,11 +189,11 @@
                         <th>Broj samoglasnika</th>
                     </tr>
                     
-                    <?php
+                    <?php 
 
-                        printWordRows($words);
+                        printWordRows($words);  
 
-                    ?>
+                    ?> 
 
                 </table>
 
